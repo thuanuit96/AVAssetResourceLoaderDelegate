@@ -175,6 +175,10 @@ static int badRequestErrorCode = 400;
  */
 - (BOOL) handleRedirectRequest:(AVAssetResourceLoadingRequest *)loadingRequest
 {
+    
+    NSLog(@"____________________handleRedirectRequest");
+
+    
     NSURLRequest *redirect = nil;
     
     redirect = [self generateRedirectURL:(NSURLRequest *)[loadingRequest request]];
@@ -255,10 +259,12 @@ static int badRequestErrorCode = 400;
     //https://srv-file22.gofile.io/download/HOH7Kb/myKeyORigin.key
     
     [customPlaylist appendString:customPlayListFormatElementInfo];
-    [customPlaylist appendString:@"#EXT-X-KEY:METHOD=AES-128,URI=\"http://srv-file22.gofile.io/download/HOH7Kb/myKeyORigin.key\",IV=0xe4c38c3142e0ef56\n"];
+    [customPlaylist appendString:@"#EXT-X-KEY:METHOD=AES-128,URI=\"http://srv-file22.gofile.io/download/sTWL6N/enc.key\"\n"];
     
     [customPlaylist appendString:customPlayListFormatElementInfo];
-    [customPlaylist appendString:@"rdtp://storage.googleapis.com/wisteria-bucket/videos/publicvideo-BgPa1_encrypt_2020-06-09-17-06-34.mp4\n"];
+    [customPlaylist appendString:@"rdtp://kaiin-api-stg.asto-system.biz/files/testendcryption/endcryptionvideo/fileSequence1.ts\n"];
+    [customPlaylist appendString:customPlayListFormatElementInfo];
+    [customPlaylist appendString:@"rdtp://kaiin-api-stg.asto-system.biz/files/testendcryption/endcryptionvideo/fileSequence1.ts\n"];
     
     [customPlaylist appendString:customPlayListFormatEnd];
 //    https://srv-file7.gofile.io/download/PHLOKo/videoplayback.mp4
@@ -310,6 +316,9 @@ static int badRequestErrorCode = 400;
 
 - (NSData*) getKey:(NSURL*) url
 {
+    NSLog(@"_____getKey");
+
+    
     NSURL *newURL = [NSURL URLWithString:[[url absoluteString] stringByReplacingOccurrencesOfString:customKeyScheme withString:httpScheme]];
     return [[NSData alloc] initWithContentsOfURL:newURL];
 }
@@ -322,6 +331,9 @@ static int badRequestErrorCode = 400;
  */
 - (BOOL) handleCustomKeyRequest:(AVAssetResourceLoadingRequest*) loadingRequest
 {
+    
+    NSLog(@"_____handleCustomKeyRequest");
+
     NSData* data = [self getKey:[[loadingRequest request] URL]];
     if (data)
     {
